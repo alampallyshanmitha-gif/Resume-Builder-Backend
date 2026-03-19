@@ -206,3 +206,21 @@ app.post("/api/ats", async (req, res) => {
 // ---------- Start Server ----------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ---------- Health Check ----------
+app.get("/api/ping", (req, res) => {
+  res.json({ message: "Backend is alive!" });
+});
+
+// ---------- Database Connectivity Check ----------
+app.get("/api/dbcheck", async (req, res) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const collections = await mongoose.connection.db.listCollections().toArray();
+      res.json({ connected: true, collections });
+    } else {
+      res.json({ connected: false, error: "MongoDB not connected" });
+    }
+  } catch (err) {
+    res.json({ connected: false, error: err.message });
+  }
+});
