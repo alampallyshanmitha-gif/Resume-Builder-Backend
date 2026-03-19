@@ -1,8 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "home page":
-  "https://allampallyshanmitha-gif.github.io/Resume-Builder-AI",
   "description": "",
   "main": "server.js",
   "scripts": {
